@@ -1,7 +1,8 @@
 const { Meet } = require('../meet');
 const client = new Meet();
 
-config = { meetingLink: 'https://meet.google.com/xyz-wxyz-xyz', email: '', pw: '' };
+config = { meetingLink: 'https://meet.google.com/gxq-nunp-xkc', email: '', pw: '' };
+// config = { meetingLink: 'https://meet.google.com/gxq-nunp-xkc', email: 'yuriy821test@gmail.com', pw: 'yuriytest' };
 
 async function command(client, message) {
     if (message.content.startsWith("!quote")) {

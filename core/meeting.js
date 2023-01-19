@@ -1,5 +1,10 @@
 // Core meeting methods
 
+async function toggleCaption() {
+    await this.page.keyboard.press('KeyC');
+    this.isCaptionEnabled = !this.isCaptionEnabled;
+}
+
 async function toggleMic() {
     await this.page.keyboard.down('ControlLeft');
     await this.page.keyboard.press('KeyD');
@@ -15,12 +20,12 @@ async function toggleVideo() {
 }
 
 async function toggleChat() {
-    var chatBtn = await this.page.waitForXPath('/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[10]/div[3]/div[3]/div/div/div[3]/span/button');
+    var chatBtn = await this.page.waitForXPath('/html/body/div[1]/c-wiz/div[1]/div/div[13]/div[3]/div[11]/div[3]/div[3]/div/div/div[3]/div/span/button');
     await chatBtn.click();
 }
 
 async function toggleMemberList() {
-    var memberListBtn = await this.page.waitForXPath('/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[10]/div[3]/div[3]/div/div/div[2]/span/button');
+    var memberListBtn = await this.page.waitForXPath('/html/body/div[1]/c-wiz/div[1]/div/div[13]/div[3]/div[11]/div[3]/div[3]/div/div/div[2]/span/button');
     await memberListBtn.click();
 }
 
@@ -43,6 +48,7 @@ async function screenshot(path) {
 }
 
 module.exports = {
+    toggleCaption: toggleCaption,
     toggleMic: toggleMic,
     toggleVideo: toggleVideo,
     toggleChat: toggleChat,

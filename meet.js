@@ -5,6 +5,7 @@ puppeteer.use(StealthPlugin());
 
 const authenticate = require('./core/authenticate');
 const meeting = require('./core/meeting');
+const caption = require('./core/captions');
 const message = require('./core/message');
 const member = require('./core/member');
 const audio = require('./core/audio'); // Not working
@@ -18,6 +19,7 @@ class Meet extends EventEmitter {
 
         // Listeners (for use in login function)
         this.message = message;
+        this.caption = caption;
         this.member = member;
         this.audio = audio;
 
@@ -29,6 +31,7 @@ class Meet extends EventEmitter {
         this.page = undefined;
         this.ctx = undefined;
 
+        this.isCaptionEnabled = false;
         this.isMicEnabled = true;
         this.isVideoEnabled = true;
         this.isChatEnabled = undefined;
@@ -39,6 +42,7 @@ class Meet extends EventEmitter {
 
     login = authenticate.auth;
 
+    toggleCaption = meeting.toggleCaption;
     toggleMic = meeting.toggleMic;
     toggleVideo = meeting.toggleVideo;
     toggleChat = meeting.toggleChat;

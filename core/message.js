@@ -4,12 +4,23 @@ async function messageListener(Meet) {
 
     async function getRecentMessage() {
         var message = await Meet.page.evaluate(() => {
-            chat = document.querySelector('.z38b6').lastChild;
-            return {
-                author: chat.firstChild.firstChild.innerText,
-                time: chat.firstChild.lastChild.innerText,
-                content: chat.lastChild.lastChild.innerText
-            }; // See div.html
+            var chat = document.querySelector('.z38b6');
+
+            if (chat) {
+                messageElement = chat.lastChild
+                if (messageElement) {
+                    const { firstChild, lastChild } = messageElement
+                    
+                    alert(`firstChild.firstChild?.innerText - ${firstChild.firstChild?.innerText}, firstChild.lastChild?.innerText - ${firstChild.lastChild?.innerText}, lastChild.lastChild?.innerText - ${lastChild.lastChild?.innerText}`)
+                    if (firstChild && lastChild) {
+                        return {
+                            author: firstChild.firstChild?.innerText,
+                            time: firstChild.lastChild?.innerText,
+                            content: lastChild.lastChild?.innerText
+                        }; // See div.html
+                    }
+                }
+            }
         })
         if (message.author !== "You") {
             await Meet.emit('message', message);
@@ -25,8 +36,11 @@ async function messageListener(Meet) {
     await Meet.page.evaluate(() => {
         // https://stackoverflow.com/questions/47903954/how-to-inject-mutationobserver-to-puppeteer
         // https://stackoverflow.com/questions/54109078/puppeteer-wait-for-page-dom-updates-respond-to-new-items-that-are-added-after/54110446#54110446
-        messageObserver = new MutationObserver(() => {getRecentMessage();});
-        messageObserver.observe(document.querySelector('.z38b6'), { subtree: true, childList: true });
+        var chat = document.querySelector('.z38b6');
+        if (chat) {
+            messageObserver = new MutationObserver(() => {getRecentMessage();});
+            messageObserver.observe(chat, { subtree: true, childList: true });
+        }
     });
 
 }

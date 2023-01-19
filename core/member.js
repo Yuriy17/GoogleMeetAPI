@@ -48,7 +48,9 @@ async function memberListener(Meet) {
         })
         Meet.members = members;
     }
+    console.log(00);
     await getMembers();
+    console.log(01);
 
     memberJoinListener(Meet);
     memberLeaveListener(Meet);
