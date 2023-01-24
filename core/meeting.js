@@ -1,7 +1,9 @@
 // Core meeting methods
 
 async function toggleCaption() {
-    await this.page.keyboard.press('KeyC');
+    var captionBtn = await this.page.waitForXPath('/html/body/div[1]/c-wiz/div[1]/div/div[13]/div[3]/div[11]/div[2]/div/div[3]/span/button');
+    await captionBtn.click();
+
     this.isCaptionEnabled = !this.isCaptionEnabled;
 }
 
